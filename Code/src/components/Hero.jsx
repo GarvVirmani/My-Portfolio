@@ -25,7 +25,7 @@ function Hero() {
         </Link>
         <a
           href={ResumePDF}
-          download="Garv_Virmani_Resume"
+          download
           className="px-6 py-3 border border-[#ff5c5c] rounded-lg text-white hover:bg-[#ff5c5c] transition"
         >
           Download Resume
