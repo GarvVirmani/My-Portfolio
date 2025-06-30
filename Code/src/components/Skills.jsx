@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { motion } from 'framer-motion';
 
 function Skills() {
   const skills = [
@@ -22,22 +23,86 @@ function Skills() {
     { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg'}
   ]
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const item = {
+    hidden: { scale: 0, opacity: 0 },
+    show: { 
+      scale: 1, 
+      opacity: 1,
+      transition: { type: "spring", stiffness: 300, damping: 20 }
+    }
+  };
+
   return (
-    <section id="skills" className="min-h-screen bg-[#1e2328] px-6 py-12">
-      <h2 className="text-4xl font-bold text-center mb-12 animate-fadeIn text-[#ff5c5c]">
+    <section id="skills" className="min-h-screen bg-[#1e2328] px-6 py-12 flex flex-col items-center">
+      <div className="absolute inset-0">
+                    {[...Array(20)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute w-2 h-2 bg-[#ff5c5c] rounded-full"
+                        style={{
+                          left: `${Math.random() * 100}%`,
+                          top: `${Math.random() * 100}%`,
+                        }}
+                        animate={{
+                          y: [0, -10, 0],
+                          opacity: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 2 + Math.random() * 3,
+                          repeat: Infinity,
+                          delay: Math.random() * 2
+                        }}
+                      />
+                    ))}
+                  </div>
+      <motion.h2
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="text-4xl md:text-5xl font-bold text-center mb-12 text-[#ff5c5c]"
+        whileHover={{ scale: 1.05, rotate: [0, -3, 0, 3, 0] }}
+        whileTap={{ scale: 0.95 }}
+      >
         Skills
-      </h2>
-      <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+      </motion.h2>
+      
+      <motion.div 
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
+      >
         {skills.map(({ name, icon }) => (
-          <div
+          <motion.div
             key={name}
-            className="bg-[#2a2f35] p-4 rounded-lg text-center hover:scale-105 transition animate-fadeIn"
+            variants={item}
+            whileHover={{ 
+              scale: 1.1,
+              rotate: [0, -5, 0, 5, 0],
+              transition: { duration: 0.5 }
+            }}
+            className="bg-[#2a2f35] p-4 rounded-lg text-center cursor-default"
           >
-            <img src={icon} alt={name} className="w-12 h-12 mx-auto mb-2" />
-            <p className="text-white">{name}</p>
-          </div>
+            <div className="w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+              <img src={icon} alt={name} className="w-12 h-12 object-contain" />
+            </div>
+            <p className="text-white font-medium">{name}</p>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   )
 }
