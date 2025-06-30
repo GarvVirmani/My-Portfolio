@@ -61,34 +61,35 @@ function Projects() {
   };
 
   return (
-    <section id="projects" className="min-h-screen bg-[#1e2328] px-6 py-12">
-      <div className="absolute inset-0">
-                    {[...Array(20)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute w-2 h-2 bg-[#ff5c5c] rounded-full"
-                        style={{
-                          left: `${Math.random() * 100}%`,
-                          top: `${Math.random() * 100}%`,
-                        }}
-                        animate={{
-                          y: [0, -10, 0],
-                          opacity: [0, 1, 0]
-                        }}
-                        transition={{
-                          duration: 2 + Math.random() * 3,
-                          repeat: Infinity,
-                          delay: Math.random() * 2
-                        }}
-                      />
-                    ))}
-                  </div>
+    <section id="projects" className="min-h-screen bg-[#1e2328] px-6 py-12 relative">
+      <div className="absolute inset-0 z-0">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-[#ff5c5c] rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -10, 0],
+              opacity: [0, 1, 0]
+            }}
+            transition={{
+              duration: 2 + Math.random() * 3,
+              repeat: Infinity,
+              delay: Math.random() * 2
+            }}
+          />
+        ))}
+      </div>
+
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-4xl md:text-5xl font-bold text-center mb-12 text-[#ff5c5c]"
+        className="text-4xl md:text-5xl font-bold text-center mb-12 text-[#ff5c5c] z-10 relative cursor-pointer"
         whileHover={{ scale: 1.05, rotate: [0, -3, 0, 3, 0] }}
         whileTap={{ scale: 0.95 }}
       >
@@ -100,7 +101,7 @@ function Projects() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
-        className="max-w-5xl mx-auto space-y-16"
+        className="max-w-5xl mx-auto space-y-16 z-10 relative"
       >
         {projects.map(({ title, desc, tech, codeLink, demoLink, image }, index) => (
           <motion.div
@@ -108,9 +109,10 @@ function Projects() {
             variants={item}
             whileHover={{ 
               y: -10,
-              transition: { duration: 0.3 }
+              boxShadow: "0 10px 25px rgba(255, 92, 92, 0.3)"
             }}
-            className="bg-[#2a2f35] rounded-2xl shadow-lg overflow-hidden relative group"
+            whileTap={{ scale: 0.98 }}
+            className="bg-[#2a2f35] rounded-2xl shadow-lg overflow-hidden relative group cursor-pointer"
           >
             <div className="relative overflow-hidden bg-black flex justify-center">
               <motion.img
@@ -120,7 +122,7 @@ function Projects() {
                 alt={title}
                 className="h-72 object-contain"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2a2f35] to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#2a2f35] to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
               <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white z-10">
                 {title}
               </h3>
@@ -134,23 +136,31 @@ function Projects() {
               
               <div className="flex justify-center gap-6">
                 <motion.a
-                  whileHover={{ scale: 1.1, backgroundColor: "#e54b4b" }}
+                  whileHover={{ 
+                    scale: 1.1, 
+                    backgroundColor: "#e54b4b",
+                    boxShadow: "0 0 15px rgba(229, 75, 75, 0.5)"
+                  }}
                   whileTap={{ scale: 0.95 }}
                   href={codeLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2 bg-[#ff5c5c] text-white rounded-lg font-medium transition-colors"
+                  className="px-5 py-2 bg-[#ff5c5c] text-white rounded-lg font-medium transition-all duration-300"
                 >
                   View Code
                 </motion.a>
                 
                 <motion.a
-                  whileHover={{ scale: 1.1, backgroundColor: "#e54b4b" }}
+                  whileHover={{ 
+                    scale: 1.1, 
+                    backgroundColor: "#e54b4b",
+                    boxShadow: "0 0 15px rgba(229, 75, 75, 0.5)"
+                  }}
                   whileTap={{ scale: 0.95 }}
                   href={demoLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2 bg-[#ff5c5c] text-white rounded-lg font-medium transition-colors"
+                  className="px-5 py-2 bg-[#ff5c5c] text-white rounded-lg font-medium transition-all duration-300"
                 >
                   Live Demo
                 </motion.a>

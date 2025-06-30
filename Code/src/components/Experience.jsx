@@ -41,34 +41,35 @@ function Experience() {
   };
 
   return (
-    <section id="experience" className="min-h-screen bg-[#1e2328] px-6 py-12 flex flex-col items-center">
-      <div className="absolute inset-0">
-                    {[...Array(20)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute w-2 h-2 bg-[#ff5c5c] rounded-full"
-                        style={{
-                          left: `${Math.random() * 100}%`,
-                          top: `${Math.random() * 100}%`,
-                        }}
-                        animate={{
-                          y: [0, -10, 0],
-                          opacity: [0, 1, 0]
-                        }}
-                        transition={{
-                          duration: 2 + Math.random() * 3,
-                          repeat: Infinity,
-                          delay: Math.random() * 2
-                        }}
-                      />
-                    ))}
-                  </div>
+    <section id="experience" className="min-h-screen bg-[#1e2328] px-6 py-12 flex flex-col items-center relative">
+      <div className="absolute inset-0 z-0">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-[#ff5c5c] rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -10, 0],
+              opacity: [0, 1, 0]
+            }}
+            transition={{
+              duration: 2 + Math.random() * 3,
+              repeat: Infinity,
+              delay: Math.random() * 2
+            }}
+          />
+        ))}
+      </div>
+
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-4xl md:text-5xl font-bold text-center mb-12 text-[#ff5c5c]"
+        className="text-4xl md:text-5xl font-bold text-center mb-12 text-[#ff5c5c] z-10 cursor-pointer"
         whileHover={{ scale: 1.05, rotate: [0, -3, 0, 3, 0] }}
         whileTap={{ scale: 0.95 }}
       >
@@ -80,7 +81,7 @@ function Experience() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="max-w-4xl w-full space-y-10"
+        className="max-w-4xl w-full space-y-10 z-10"
       >
         {experiences.map(({ title, company, duration, description }, index) => (
           <motion.div
@@ -88,9 +89,11 @@ function Experience() {
             variants={item}
             whileHover={{ 
               y: -5,
-              boxShadow: "0 10px 30px rgba(255, 92, 92, 0.2)"
+              boxShadow: "0 10px 30px rgba(255, 92, 92, 0.2)",
+              backgroundColor: "#2f353c"
             }}
-            className="bg-[#2a2f35] p-6 rounded-2xl relative overflow-hidden"
+            whileTap={{ scale: 0.98 }}
+            className="bg-[#2a2f35] p-6 rounded-2xl relative overflow-hidden cursor-pointer transition-all duration-300"
           >
             <div className="absolute top-0 left-0 w-1 h-full bg-[#ff5c5c]"></div>
             
@@ -102,8 +105,9 @@ function Experience() {
               </div>
               
               <motion.p 
-                whileHover={{ scale: 1.05 }}
-                className="text-sm font-medium text-[#ff5c5c] bg-[#ff5c5c]/10 px-3 py-1 rounded-full md:w-1/5 md:text-right mt-4 md:mt-0 self-start"
+                whileHover={{ scale: 1.05, backgroundColor: "#ff5c5c", color: "#fff" }}
+                whileTap={{ scale: 0.95 }}
+                className="text-sm font-medium text-[#ff5c5c] bg-[#ff5c5c]/10 px-3 py-1 rounded-full md:w-1/5 md:text-right mt-4 md:mt-0 self-start transition-colors duration-300"
               >
                 {duration}
               </motion.p>
